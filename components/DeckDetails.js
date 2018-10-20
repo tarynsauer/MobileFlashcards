@@ -1,17 +1,32 @@
 import React from 'react'
-import { Button, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
+
+const styles = StyleSheet.create({
+  flatview: {
+    justifyContent: 'center',
+    paddingTop: 30,
+    borderRadius: 2,
+  },
+  title: {
+    fontFamily: 'Verdana',
+    fontSize: 18
+  },
+  count: {
+    color: 'red'
+  }
+})
 
 class DeckDetails extends React.Component {
   render() {
-    console.log(this.props)
     const { questions, navigation, title } = this.props
 
-    return (<View>
-      <Text>{title}</Text>
-      <Text>Cards: {questions.length}</Text>
-      <Button title={title} onPress={() => navigation.navigate('Deck')} />
-    </View>
+    return (<TouchableHighlight style={styles.flatview} onPress={() => navigation.navigate('Deck', {questions: questions, title: title})}>
+      <View>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.count}>Cards: {questions.length}</Text>
+      </View>
+    </TouchableHighlight>
     )
   }
 }

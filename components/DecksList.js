@@ -1,8 +1,24 @@
 import React from 'react'
 import { AppLoading} from 'expo'
-import { Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { fetchDeckResults } from '../utils/api'
 import DeckDetails from './DeckDetails'
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  h2text: {
+    marginTop: 10,
+    fontFamily: 'Helvetica',
+    fontSize: 36,
+    fontWeight: 'bold',
+  },
+})
 
 export default class DecksList extends React.Component {
   state = {
@@ -27,11 +43,14 @@ export default class DecksList extends React.Component {
       return <AppLoading />
     } else {
       return (
-        <View>
-          {Object.keys(data).map((key, index) => {
-            let { title, questions } = data[key]
-            return <DeckDetails key={title} title={title} questions={questions} />
-          })}
+        <View style={styles.container}>
+          <Text style={styles.h2text}>
+            Flashcard Decks
+          </Text>
+          <FlatList
+            data={Object.values(data)}
+            renderItem={({item}) => <DeckDetails key={item.title} title={item.title} questions={item.questions} />}
+          />
         </View>
       )
     }
