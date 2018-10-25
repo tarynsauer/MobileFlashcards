@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, Text, TextInput, View } from 'react-native'
 import { createDeck } from '../utils/api'
 import { withNavigation } from 'react-navigation'
+import { connect } from 'react-redux'
+import { addDeck } from '../actions'
 
 class CreateDeck extends React.Component {
   state = {
@@ -13,9 +15,11 @@ class CreateDeck extends React.Component {
   }
 
   submitForm = (e) => {
-    createDeck(this.state.title).then(data =>
-      this.props.navigation.navigate('Deck', { title: this.state.title, questions: [] })
-    )
+    const { dispatch } = this.props
+
+    createDeck(this.state.title).then(deck =>
+      dispatch(addDeck(deck)))
+      .then(() => this.props.navigate('Deck', { title: this.state.title, questions: [] }))
   }
 
   render() {
@@ -29,4 +33,10 @@ class CreateDeck extends React.Component {
   }
 }
 
-export default withNavigation(CreateDeck)
+function mapStateToProps (state, { navigation }) {
+  return {
+    navigate: navigation.navigate,
+  }
+}
+
+export default connect(mapStateToProps)(withNavigation(CreateDeck))

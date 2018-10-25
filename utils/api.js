@@ -43,16 +43,20 @@ export function fetchDeckResults () {
 }
 
 export function createDeck (key) {
-  return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify({
-    [key]:{ title: key, questions: []}
-  }))
+  const deck = {[key]:{ title: key, questions: []}}
+  return AsyncStorage.mergeItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(deck))
+    .then(()=>{ return deck })
 }
 
 export function addCard (key, question, answer) {
   return AsyncStorage.getItem(FLASHCARDS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
-      data[key]['questions'].push({question: question, answer: answer})
+      const newCard = {question: question, answer: answer}
+
+      data[key]['questions'].push(newCard)
       AsyncStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(data))
+
+      return {[key]: data[key]}
     })
 }

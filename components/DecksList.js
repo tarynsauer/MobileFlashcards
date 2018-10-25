@@ -2,7 +2,9 @@ import React from 'react'
 import { AppLoading} from 'expo'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { fetchDeckResults } from '../utils/api'
+import { receiveDecks } from '../actions'
 import DeckDetails from './DeckDetails'
+import { connect } from 'react-redux'
 
 const styles = StyleSheet.create({
   container: {
@@ -20,26 +22,21 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class DecksList extends React.Component {
+class DecksList extends React.Component {
   state = {
-    data: {},
     ready: false,
   }
 
   componentDidMount () {
-    fetchDeckResults().then(data =>
-      this.setState(
-        {
-          data: data,
-          ready: true,
-        })
-    )
+    const { dispatch } = this.props
+
+    fetchDeckResults().then(decks =>
+      dispatch(receiveDecks(decks)))
+      .then(() => this.setState(() => ({ready: true})))
   }
 
   render() {
-    const { data, ready } = this.state
-
-    if (ready === false) {
+    if (this.state.ready === false) {
       return <AppLoading />
     } else {
       return (
@@ -48,7 +45,7 @@ export default class DecksList extends React.Component {
             Flashcard Decks
           </Text>
           <FlatList
-            data={Object.values(data)}
+            data={Object.values(this.props.decks)}
             renderItem={({item}) => <DeckDetails key={item.title} title={item.title} questions={item.questions} />}
           />
         </View>
@@ -56,3 +53,11 @@ export default class DecksList extends React.Component {
     }
   }
 }
+
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(DecksList)

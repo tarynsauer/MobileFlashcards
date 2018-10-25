@@ -1,4 +1,7 @@
 import React from 'react'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
 import { Button, StyleSheet, Text, View } from 'react-native'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import AddCard from './components/AddCard'
@@ -33,8 +36,11 @@ const MainNavigator = createStackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <MainNavigator />
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <MainNavigator />
+        </View>
+      </Provider>
     )
   }
 }
-
