@@ -12,13 +12,11 @@ const styles = StyleSheet.create({
     marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  h2text: {
-    marginTop: 10,
-    fontFamily: 'Helvetica',
+  h1text: {
     fontSize: 36,
     fontWeight: 'bold',
+    marginBottom: 25,
   },
 })
 
@@ -41,7 +39,7 @@ class DecksList extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Text style={styles.h2text}>
+          <Text style={styles.h1text}>
             Flashcard Decks
           </Text>
           <FlatList

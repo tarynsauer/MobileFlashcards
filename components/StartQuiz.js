@@ -1,9 +1,45 @@
 import React from 'react'
 import { AppLoading} from 'expo'
-import { Button, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import { shuffle } from '../utils/helpers'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  h1text: {
+    marginBottom: 25,
+    fontSize: 36,
+    fontWeight: 'bold',
+  },
+  question: {
+    marginBottom: 10,
+    fontSize: 24,
+    color: 'teal',
+  },
+  answer: {
+    marginBottom: 25,
+    fontSize: 20,
+    color: 'teal',
+  },
+  answerContainer: {
+    marginBottom: 25,
+    marginTop: 25,
+  },
+  count: {
+    marginTop: 20,
+    marginBottom: 15,
+    fontSize: 15,
+    color: 'gray',
+    fontWeight: 'bold',
+  },
+})
 
 class StartQuiz extends React.Component {
   state = {
@@ -57,13 +93,17 @@ class StartQuiz extends React.Component {
         )
       } else {
         return (
-          <View>
-            <Text>Questions remaining: {unansweredQuestions.length}</Text>
-            <Text>Question: {currentQuestion.question}</Text>
-            {this.state.showAnswer && <Text>Answer: {currentQuestion.answer}</Text>}
-            <Button title='Show Answer' onPress={()=> this.setState({showAnswer: true})} />
-            <Button title='Correct' onPress={()=> this.advanceDeck(currentQuestion, 'correctCount')} />
-            <Button title='Incorrect' onPress={()=> this.advanceDeck(currentQuestion, 'incorrectCount')} />
+          <View style={styles.container}>
+            <Text style={styles.h1text}>{this.props.title}</Text>
+            <Text style={styles.question}>{currentQuestion.question}</Text>
+            <Text style={styles.count}>{unansweredQuestions.length} / {unansweredQuestions.length + answeredQuestions.length}</Text>
+            {this.state.showAnswer &&
+                <View style={styles.answerContainer}>
+                  <Text style={styles.answer}>{currentQuestion.answer}</Text>
+                  <Button color='green' title='Correct' onPress={()=> this.advanceDeck(currentQuestion, 'correctCount')} />
+                  <Button color='red' title='Incorrect' onPress={()=> this.advanceDeck(currentQuestion, 'incorrectCount')} />
+                </View>}
+            {!this.state.showAnswer && <Button title='Show Answer' onPress={()=> this.setState({showAnswer: true})} />}
           </View>
         )
       }

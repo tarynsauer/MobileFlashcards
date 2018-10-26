@@ -5,14 +5,16 @@ import { withNavigation } from 'react-navigation'
 const styles = StyleSheet.create({
   flatview: {
     justifyContent: 'center',
-    paddingTop: 30,
+    paddingTop: 15,
+    paddingBottom: 15,
+    width: 250,
   },
   title: {
-    fontFamily: 'Verdana',
     fontSize: 18
   },
   count: {
-    color: 'red'
+    color: 'teal',
+    fontWeight: 'bold',
   }
 })
 

@@ -1,9 +1,33 @@
 import React from 'react'
-import { Button, Text, TextInput, View } from 'react-native'
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { createDeck } from '../utils/api'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  h1text: {
+    fontSize: 36,
+    fontWeight: 'bold',
+  },
+  input: {
+    width: 300,
+    height: 30,
+    marginTop: 10,
+    marginBottom: 10,
+    borderColor: 'gray',
+    borderWidth: 1,
+  },
+  form: {
+    marginTop: 35,
+    marginBottom: 35,
+  },
+})
 
 class CreateDeck extends React.Component {
   state = {
@@ -24,10 +48,13 @@ class CreateDeck extends React.Component {
 
   render() {
     return (
-      <View>
-        <Text>Create Deck</Text>
-        <TextInput name='title' type='text' value={this.state.title} onChangeText={this.handleChange} />
-        <Button title='Create' disabled={this.state.title.length === 0} onPress={this.submitForm} />
+      <View style={styles.container}>
+        <Text style={styles.h1text}>Create Deck</Text>
+        <View style={styles.form}>
+          <Text>Title:</Text>
+          <TextInput style={styles.input} name='title' type='text' value={this.state.title} onChangeText={this.handleChange} />
+          <Button title='Create' disabled={this.state.title.length === 0} onPress={this.submitForm} />
+        </View>
       </View>
     )
   }

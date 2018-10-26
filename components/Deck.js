@@ -1,11 +1,32 @@
 import React from 'react'
-import { Button, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
-class Deck extends React.Component {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    marginTop: 20,
+  },
+  h1text: {
+    marginBottom: 25,
+    fontSize: 36,
+    fontWeight: 'bold',
+  },
+   h2text: {
+    marginBottom: 10,
+    fontSize: 28,
+    color: 'teal',
+    fontWeight: 'bold',
+  },
+})
 
+class Deck extends React.Component {
   startQuiz() {
     this.props.navigate('StartQuiz', { title: this.props.title })
     clearLocalNotification()
@@ -16,11 +37,13 @@ class Deck extends React.Component {
     const { navigate, questions, title } = this.props
 
     return (
-      <View>
-        <Text>{title}</Text>
-        <Text>{questions.length}</Text>
-        <Button title='Add Card' onPress={() => navigate('AddCard', { title: title, questions: questions })} />
-        <Button title='Start Quiz' disabled={questions.length === 0} onPress={this.startQuiz.bind(this)} />
+      <View style={styles.container}>
+        <Text style={styles.h1text}>{title}</Text>
+        <Text style={styles.h2text}>{questions.length} cards</Text>
+        <View style={styles.buttonContainer}>
+          <Button title='Add Card' onPress={() => navigate('AddCard', { title: title, questions: questions })} />
+          <Button title='Start Quiz' disabled={questions.length === 0} onPress={this.startQuiz.bind(this)} />
+        </View>
       </View>
     )
   }

@@ -13,15 +13,6 @@ import Deck from './components/Deck'
 import DeckDetails from './components/DeckDetails'
 import { setLocalNotification } from './utils/helpers'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
-
 const Tabs = createBottomTabNavigator({
   Home: { screen: DecksList},
   'Create Deck': { screen: CreateDeck},
