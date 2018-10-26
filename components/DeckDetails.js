@@ -21,7 +21,7 @@ class DeckDetails extends React.Component {
   render() {
     const { questions, navigation, title } = this.props
 
-    return (<TouchableHighlight style={styles.flatview} onPress={() => navigation.navigate('Deck', {questions: questions, title: title})}>
+    return (<TouchableHighlight style={styles.flatview} onPress={() => navigation.navigate('Deck', {title: title})}>
       <View>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.count}>Cards: {questions.length}</Text>

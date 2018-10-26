@@ -12,7 +12,7 @@ class Deck extends React.Component {
         <Text>{title}</Text>
         <Text>{questions.length}</Text>
         <Button title='Add Card' onPress={() => navigate('AddCard', { title: title, questions: questions })} />
-        <Button title='Start a Quiz' onPress={() => navigate('StartQuiz')} />
+        <Button title='Start a Quiz' onPress={() => navigate('StartQuiz', { title: title })} />
       </View>
     )
   }
