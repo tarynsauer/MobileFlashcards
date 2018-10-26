@@ -2,8 +2,16 @@ import React from 'react'
 import { Button, Text, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Deck extends React.Component {
+
+  startQuiz() {
+    this.props.navigate('StartQuiz', { title: this.props.title })
+    clearLocalNotification()
+      .then(setLocalNotification)
+  }
+
   render() {
     const { navigate, questions, title } = this.props
 
@@ -12,7 +20,7 @@ class Deck extends React.Component {
         <Text>{title}</Text>
         <Text>{questions.length}</Text>
         <Button title='Add Card' onPress={() => navigate('AddCard', { title: title, questions: questions })} />
-        <Button title='Start a Quiz' onPress={() => navigate('StartQuiz', { title: title })} />
+        <Button title='Start Quiz' onPress={this.startQuiz.bind(this)} />
       </View>
     )
   }

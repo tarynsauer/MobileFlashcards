@@ -11,6 +11,7 @@ import CreateDeck from './components/CreateDeck'
 import EndQuiz from './components/EndQuiz'
 import Deck from './components/Deck'
 import DeckDetails from './components/DeckDetails'
+import { setLocalNotification } from './utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,6 +37,11 @@ const MainNavigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(reducer)}>
