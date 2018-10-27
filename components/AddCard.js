@@ -64,7 +64,7 @@ class AddCard extends React.Component {
           <Text>Answer:</Text>
           <TextInput style={styles.input} name='answer' type='text' value={answer} onChangeText={(text) => this.setState({answer: text})} />
         </View>
-        <Button style={styles.button} title='Add Card' disabled={(question.length === 0 || answer.length === 0)} onPress={this.submitForm} />
+        <Button style={styles.button} title='Submit' disabled={(question.length === 0 || answer.length === 0)} onPress={this.submitForm} />
       </View>
     )
   }

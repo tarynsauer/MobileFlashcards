@@ -49,11 +49,11 @@ class CreateDeck extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.h1text}>Create Deck</Text>
+        <Text style={styles.h1text}>Create New Deck</Text>
         <View style={styles.form}>
           <Text>Title:</Text>
           <TextInput style={styles.input} name='title' type='text' value={this.state.title} onChangeText={this.handleChange} />
-          <Button title='Create' disabled={this.state.title.length === 0} onPress={this.submitForm} />
+          <Button title='Create Deck' disabled={this.state.title.length === 0} onPress={this.submitForm} />
         </View>
       </View>
     )
