@@ -10,21 +10,48 @@ import DecksList from './components/DecksList'
 import CreateDeck from './components/CreateDeck'
 import EndQuiz from './components/EndQuiz'
 import Deck from './components/Deck'
-import DeckDetails from './components/DeckDetails'
 import { setLocalNotification } from './utils/helpers'
 
 const Tabs = createBottomTabNavigator({
-  Home: { screen: DecksList},
-  'Create Deck': { screen: CreateDeck},
+  Home: {
+    screen: DecksList,
+  },
+  'Create Deck': {
+    screen: CreateDeck,
+  },
 })
 
 const MainNavigator = createStackNavigator({
-  Home: { screen: Tabs},
-  Deck: { screen: Deck},
-  DeckDetails: { screen: DeckDetails},
-  StartQuiz: { screen: StartQuiz},
-  EndQuiz: { screen: EndQuiz},
-  AddCard: { screen: AddCard},
+  Home: {
+    screen: Tabs,
+    navigationOptions: () => ({
+      title: 'Flashcard Decks',
+    }),
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: ({navigation}) => ({
+      title: `${navigation.state.params.title} Deck`,
+    }),
+  },
+  StartQuiz: {
+    screen: StartQuiz,
+    navigationOptions: ({navigation}) => ({
+      title: `${navigation.state.params.title} Quiz`,
+    }),
+  },
+  EndQuiz: {
+    screen: EndQuiz,
+    navigationOptions: ({navigation}) => ({
+      title: `${navigation.state.params.title} Score`,
+    }),
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: () => ({
+      title: 'Add Card',
+    }),
+  },
 })
 
 export default class App extends React.Component {

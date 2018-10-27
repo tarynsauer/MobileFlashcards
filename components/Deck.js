@@ -35,11 +35,12 @@ class Deck extends React.Component {
 
   render() {
     const { navigate, questions, title } = this.props
+    const cardCount = questions.length
 
     return (
       <View style={styles.container}>
         <Text style={styles.h1text}>{title}</Text>
-        <Text style={styles.h2text}>{questions.length} cards</Text>
+        <Text style={styles.h2text}>{cardCount} {cardCount === 1 ? 'card' : 'cards'}</Text>
         <View style={styles.buttonContainer}>
           <Button title='Add Card' onPress={() => navigate('AddCard', { title: title, questions: questions })} />
           <Button title='Start Quiz' disabled={questions.length === 0} onPress={this.startQuiz.bind(this)} />

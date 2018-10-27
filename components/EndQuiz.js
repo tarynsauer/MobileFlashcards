@@ -34,7 +34,7 @@ class EndQuiz extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.h1text}>{title} quiz results:</Text>
-        <Text style={styles.h2text}>{score}%</Text>
+        <Text style={styles.h2text}>{score}% correct</Text>
         <View style={styles.buttonContainer}>
           <Button title='Restart Quiz' onPress={() => this.props.navigation.navigate('StartQuiz', {title: title})} />
           <Button title='Back to Deck' onPress={() => this.props.navigation.navigate('Deck', {title: title})} />
