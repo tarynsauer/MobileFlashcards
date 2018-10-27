@@ -44,7 +44,8 @@ class DecksList extends React.Component {
           </Text>
           <FlatList
             data={Object.values(this.props.decks)}
-            renderItem={({item}) => <DeckDetails key={item.title} title={item.title} questions={item.questions} />}
+            keyExtractor={(item, index) => item.title}
+            renderItem={({item}) => <DeckDetails title={item.title} questions={item.questions} />}
           />
         </View>
       )
