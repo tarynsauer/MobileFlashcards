@@ -3,6 +3,7 @@ import { AppLoading} from 'expo'
 import { Button, StyleSheet, Text, View } from 'react-native'
 import { shuffle } from '../utils/helpers'
 import { withNavigation } from 'react-navigation'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -28,14 +29,19 @@ const styles = StyleSheet.create({
 })
 
 class EndQuiz extends React.Component {
+  componentDidLoad() {
+    clearLocalNotification().then(setLocalNotification)
+  }
+
   render() {
     const { score, title } = this.props.navigation.state.params
+    const { container, h1text, h2text, buttonContainer } = styles
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.h1text}>{title} quiz results:</Text>
-        <Text style={styles.h2text}>{score}% correct</Text>
-        <View style={styles.buttonContainer}>
+      <View style={container}>
+        <Text style={h1text}>{title} quiz results:</Text>
+        <Text style={h2text}>{score}% correct</Text>
+        <View style={buttonContainer}>
           <Button title='Restart Quiz' onPress={() => this.props.navigation.navigate('StartQuiz', {title: title})} />
           <Button title='Back to Deck' onPress={() => this.props.navigation.navigate('Deck', {title: title})} />
         </View>

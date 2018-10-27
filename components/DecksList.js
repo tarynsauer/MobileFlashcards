@@ -34,12 +34,14 @@ class DecksList extends React.Component {
   }
 
   render() {
+    const { container, h1text } = styles
+
     if (this.state.ready === false) {
       return <AppLoading />
     } else {
       return (
-        <View style={styles.container}>
-          <Text style={styles.h1text}>
+        <View style={container}>
+          <Text style={h1text}>
             Flashcard Decks
           </Text>
           <FlatList

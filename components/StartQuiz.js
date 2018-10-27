@@ -66,17 +66,18 @@ class StartQuiz extends React.Component {
   }
 
   resetQuiz () {
-    this.setState((prevState, props) => ({
+    this.setState({
       correctCount: 0,
       incorrectCount: 0,
       unansweredQuestions: shuffle(this.props.questions),
       answeredQuestions: [],
       showAnswer: false,
-    }))
+    })
   }
 
   render() {
     const { correctCount, incorrectCount, unansweredQuestions, answeredQuestions } = this.state
+    const { container, h1text, question, count, answerContainer, answer } = styles
 
     if (unansweredQuestions.length === 0 && answeredQuestions.length === 0) {
       return <AppLoading />
@@ -93,13 +94,13 @@ class StartQuiz extends React.Component {
         )
       } else {
         return (
-          <View style={styles.container}>
-            <Text style={styles.h1text}>{this.props.title}</Text>
-            <Text style={styles.question}>{currentQuestion.question}</Text>
-            <Text style={styles.count}>{unansweredQuestions.length} / {unansweredQuestions.length + answeredQuestions.length}</Text>
+          <View style={container}>
+            <Text style={h1text}>{this.props.title}</Text>
+            <Text style={question}>{currentQuestion.question}</Text>
+            <Text style={count}>{unansweredQuestions.length} / {unansweredQuestions.length + answeredQuestions.length}</Text>
             {this.state.showAnswer &&
-                <View style={styles.answerContainer}>
-                  <Text style={styles.answer}>{currentQuestion.answer}</Text>
+                <View style={answerContainer}>
+                  <Text style={answer}>{currentQuestion.answer}</Text>
                   <Button color='green' title='Correct' onPress={()=> this.advanceDeck(currentQuestion, 'correctCount')} />
                   <Button color='red' title='Incorrect' onPress={()=> this.advanceDeck(currentQuestion, 'incorrectCount')} />
                 </View>}

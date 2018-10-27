@@ -39,21 +39,25 @@ class CreateDeck extends React.Component {
   }
 
   submitForm = (e) => {
-    const { dispatch } = this.props
+    const { dispatch, navigate } = this.props
+    const { title } = this.state
 
-    createDeck(this.state.title).then(deck =>
+    createDeck(title).then(deck =>
       dispatch(addDeck(deck)))
-      .then(() => this.props.navigate('Deck', { title: this.state.title, questions: [] }))
+      .then(() => navigate('Deck', { title: title, questions: [] }))
   }
 
   render() {
+    const { container, h1text, form, input } = styles
+    const { title } = this.state
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.h1text}>Create New Deck</Text>
-        <View style={styles.form}>
+      <View style={container}>
+        <Text style={h1text}>Create New Deck</Text>
+        <View style={form}>
           <Text>Title:</Text>
-          <TextInput style={styles.input} name='title' type='text' value={this.state.title} onChangeText={this.handleChange} />
-          <Button title='Create Deck' disabled={this.state.title.length === 0} onPress={this.submitForm} />
+          <TextInput style={input} name='title' type='text' value={title} onChangeText={this.handleChange} />
+          <Button title='Create Deck' disabled={title.length === 0} onPress={this.submitForm} />
         </View>
       </View>
     )

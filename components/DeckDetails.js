@@ -18,19 +18,13 @@ const styles = StyleSheet.create({
   }
 })
 
-class DeckDetails extends React.Component {
-
-  render() {
-    const { questions, navigation, title } = this.props
-
-    return (<TouchableOpacity style={styles.flatview} onPress={()=> navigation.navigate('Deck', {title: title})}>
-      <View>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.count}>Cards: {questions.length}</Text>
-      </View>
-    </TouchableOpacity>
-    )
-  }
-}
+const DeckDetails = ({questions, navigation, title}) => (
+  <TouchableOpacity style={styles.flatview} onPress={()=> navigation.navigate('Deck', {title: title})}>
+    <View>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.count}>Cards: {questions.length}</Text>
+    </View>
+  </TouchableOpacity>
+)
 
 export default withNavigation(DeckDetails)

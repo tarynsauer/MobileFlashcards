@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { addCard } from '../utils/api'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -53,18 +53,19 @@ class AddCard extends React.Component {
 
   render() {
     const { answer, question }  = this.state
+    const { button, container, h1text, h2text, input } = styles
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.h1text}>{this.props.title}</Text>
-        <Text style={styles.h2text}>Add new card</Text>
-        <View style={styles.form}>
+      <View style={container}>
+        <Text style={h1text}>{this.props.title}</Text>
+        <Text style={h2text}>Add new card</Text>
+        <KeyboardAvoidingView style={styles.form}>
           <Text>Question:</Text>
-          <TextInput style={styles.input} name='question' type='text' value={question} onChangeText={(text) => this.setState({question: text})} />
+          <TextInput style={input} name='question' type='text' value={question} onChangeText={(text) => this.setState({question: text})} />
           <Text>Answer:</Text>
-          <TextInput style={styles.input} name='answer' type='text' value={answer} onChangeText={(text) => this.setState({answer: text})} />
-        </View>
-        <Button style={styles.button} title='Submit' disabled={(question.length === 0 || answer.length === 0)} onPress={this.submitForm} />
+          <TextInput style={input} name='answer' type='text' value={answer} onChangeText={(text) => this.setState({answer: text})} />
+        </KeyboardAvoidingView>
+        <Button style={button} title='Submit' disabled={(question.length === 0 || answer.length === 0)} onPress={this.submitForm} />
       </View>
     )
   }

@@ -2,7 +2,6 @@ import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux'
-import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -29,19 +28,18 @@ const styles = StyleSheet.create({
 class Deck extends React.Component {
   startQuiz() {
     this.props.navigate('StartQuiz', { title: this.props.title })
-    clearLocalNotification()
-      .then(setLocalNotification)
   }
 
   render() {
     const { navigate, questions, title } = this.props
     const cardCount = questions.length
+    const { container, h1text, h2text, buttonContainer } = styles
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.h1text}>{title}</Text>
-        <Text style={styles.h2text}>{cardCount} {cardCount === 1 ? 'card' : 'cards'}</Text>
-        <View style={styles.buttonContainer}>
+      <View style={container}>
+        <Text style={h1text}>{title}</Text>
+        <Text style={h2text}>{cardCount} {cardCount === 1 ? 'card' : 'cards'}</Text>
+        <View style={buttonContainer}>
           <Button title='Add Card' onPress={() => navigate('AddCard', { title: title, questions: questions })} />
           <Button title='Start Quiz' disabled={questions.length === 0} onPress={this.startQuiz.bind(this)} />
         </View>
